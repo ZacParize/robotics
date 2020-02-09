@@ -1,6 +1,7 @@
 ## Synopsis
 
-Project emulates duel between any participants
+Project emulates duel between any participants.
+Unit tests are in process of writing
 
 Main entities:
 
@@ -21,7 +22,6 @@ Main entities:
 Install JDK11 for launching
 
 https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html
-
 
 ## API Reference
 
