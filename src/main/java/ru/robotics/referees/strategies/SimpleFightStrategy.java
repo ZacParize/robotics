@@ -19,7 +19,7 @@ import ru.robotics.actors.Actor;
  * Base simple fight strategy
  * @see Callable
  */
-public class SimpleFightStrategy implements Callable<Void> {
+public class SimpleFightStrategy implements Callable<Actor> {
 
   private final Actor actor1;
   private final Actor actor2;
@@ -37,7 +37,7 @@ public class SimpleFightStrategy implements Callable<Void> {
    * @throws Exception
    */
   @Override
-  public Void call() throws Exception {
+  public Actor call() throws Exception {
     if (actor1 == null || actor2 == null || actions == null) {
       return null;
     }
@@ -51,6 +51,6 @@ public class SimpleFightStrategy implements Callable<Void> {
         actor2.attack(actor1);
       }
     }
-    return null;
+    return actor1.isAlive() ? actor1 : actor2;
   }
 }
