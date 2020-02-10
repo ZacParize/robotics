@@ -30,11 +30,11 @@ public class Killer implements Actor, Observable<Killer> {
   /**
    * Observable delegate
    */
-  private final Observable<Killer> observable = new ObservableImpl<>();
+  private final Observable<Killer> observableDelegate = new ObservableImpl<>();
   /**
    * Actor delegate
    */
-  private final Actor actor;
+  private final Actor actorDelegate;
 
   /**
    * Constructor for actor creation
@@ -42,7 +42,7 @@ public class Killer implements Actor, Observable<Killer> {
    * @param weapons collection of weapons
    */
   public Killer(String id, Collection<Weapon> weapons) {
-    this.actor = new ActorImpl(id, LIFE, weapons);
+    this.actorDelegate = new ActorImpl(id, LIFE, weapons);
   }
 
   /**
@@ -52,7 +52,7 @@ public class Killer implements Actor, Observable<Killer> {
    */
   @Override
   public void addObserver(Observer<Killer> observer) {
-    observable.addObserver(observer);
+    observableDelegate.addObserver(observer);
   }
 
   /**
@@ -62,7 +62,7 @@ public class Killer implements Actor, Observable<Killer> {
    */
   @Override
   public void removeObserver(Observer<Killer> observer) {
-    observable.removeObserver(observer);
+    observableDelegate.removeObserver(observer);
   }
 
   /**
@@ -72,7 +72,7 @@ public class Killer implements Actor, Observable<Killer> {
    */
   @Override
   public List<Observer<Killer>> getObservers() {
-    return observable.getObservers();
+    return observableDelegate.getObservers();
   }
 
   /**
@@ -82,7 +82,7 @@ public class Killer implements Actor, Observable<Killer> {
    */
   @Override
   public String getId() {
-    return actor.getId();
+    return actorDelegate.getId();
   }
 
   /**
@@ -92,8 +92,8 @@ public class Killer implements Actor, Observable<Killer> {
    */
   @Override
   public void attack(Actor opponent) {
-    actor.attack(opponent);
-    observable.getObservers().forEach(o -> o.notifyAboutAction(this, Action.ATTACK));
+    actorDelegate.attack(opponent);
+    observableDelegate.getObservers().forEach(o -> o.notifyAboutAction(this, Action.ATTACK));
   }
 
   /**
@@ -103,11 +103,11 @@ public class Killer implements Actor, Observable<Killer> {
    */
   @Override
   public void protect(int damage) {
-    if (!actor.isAlive()) {
+    if (!actorDelegate.isAlive()) {
       return;
     }
-    actor.protect(damage);
-    observable.getObservers().forEach(o -> o.notifyAboutAction(this, Action.PROTECT));
+    actorDelegate.protect(damage);
+    observableDelegate.getObservers().forEach(o -> o.notifyAboutAction(this, Action.PROTECT));
   }
 
   /**
@@ -117,7 +117,7 @@ public class Killer implements Actor, Observable<Killer> {
    */
   @Override
   public boolean isAlive() {
-    return actor.isAlive();
+    return actorDelegate.isAlive();
   }
 
 }
