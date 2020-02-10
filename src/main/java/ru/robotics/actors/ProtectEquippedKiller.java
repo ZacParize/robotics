@@ -18,6 +18,7 @@ import ru.robotics.weapons.Weapon;
 
 /**
  * Protect equipped killer implementation
+ * Decorator of killer {@link Killer}
  * @see Killer
  * @see ProtectEquipment
  */
@@ -26,7 +27,7 @@ public class ProtectEquippedKiller extends Killer implements Equipped<ProtectEqu
   /**
    * Protect equipped delegate
    */
-  private final Equipped<ProtectEquipment> equipped;
+  private final Equipped<ProtectEquipment> equippedDelegate;
 
   /**
    * Constructor
@@ -36,7 +37,7 @@ public class ProtectEquippedKiller extends Killer implements Equipped<ProtectEqu
    */
   public ProtectEquippedKiller(String id, Collection<Weapon> weapons, Collection<ProtectEquipment> protectEquipments) {
     super(id, weapons);
-    this.equipped = new EquippedImpl<>(protectEquipments);
+    this.equippedDelegate = new EquippedImpl<>(protectEquipments);
   }
 
   /**
@@ -45,7 +46,7 @@ public class ProtectEquippedKiller extends Killer implements Equipped<ProtectEqu
    */
   @Override
   public void setEquipments() {
-    equipped.setEquipments();
+    equippedDelegate.setEquipments();
   }
 
   /**
@@ -54,7 +55,7 @@ public class ProtectEquippedKiller extends Killer implements Equipped<ProtectEqu
    */
   @Override
   public void unsetEquipments() {
-    equipped.unsetEquipments();
+    equippedDelegate.unsetEquipments();
   }
 
   /**
@@ -64,7 +65,7 @@ public class ProtectEquippedKiller extends Killer implements Equipped<ProtectEqu
    */
   @Override
   public List<ProtectEquipment> getEquipments() {
-    return equipped.getEquipments();
+    return equippedDelegate.getEquipments();
   }
 
   /**
@@ -73,7 +74,7 @@ public class ProtectEquippedKiller extends Killer implements Equipped<ProtectEqu
    */
   @Override
   public void protect(int damage) {
-    int tempDamage = Math.abs(damage) - Math.abs(equipped.getEquipments().stream().map(ProtectEquipment::get)
+    int tempDamage = Math.abs(damage) - Math.abs(equippedDelegate.getEquipments().stream().map(ProtectEquipment::get)
         .reduce(0, (a, b) -> a + b));
     super.protect(tempDamage <= 0 ? 0 : tempDamage);
   }
