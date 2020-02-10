@@ -10,6 +10,7 @@
 package ru.robotics.referees;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.Collections;
 import java.util.List;
@@ -23,6 +24,33 @@ import ru.robotics.weapons.Automat;
 import ru.robotics.weapons.Gun;
 
 public class SimpleRefereeTest {
+
+  @Test
+  void testNulls() {
+    SimpleReferee referee = RefereeFactory.createSimpleReferee(null);
+    assertNull(referee.getWinner());
+
+    final String id1 = "killer1";
+    final String id2 = "killer2";
+
+    referee = RefereeFactory.createSimpleReferee(List.of(
+        ActorFactory.createKiller(id1, null),
+        ActorFactory.createKiller(id2, Collections.singleton(new Gun<>(null)))
+    ));
+    assertEquals(id2, referee.getWinner().getId());
+
+    referee = RefereeFactory.createSimpleReferee(List.of(
+        ActorFactory.createKiller(id1, null),
+        ActorFactory.createProtectEquippedKiller(id2, Collections.singleton(new Automat<>(null)), null)
+    ));
+    assertEquals(id2, referee.getWinner().getId());
+
+    referee = RefereeFactory.createSimpleReferee(List.of(
+        ActorFactory.createKiller(id1, Collections.singleton(new Automat<>(null))),
+        ActorFactory.createProtectEquippedKiller(id2, null, null)
+    ));
+    assertEquals(id1, referee.getWinner().getId());
+  }
 
   @Test
   void testTwoParticipants() {
