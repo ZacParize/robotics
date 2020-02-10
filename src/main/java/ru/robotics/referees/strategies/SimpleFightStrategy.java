@@ -32,7 +32,7 @@ public class SimpleFightStrategy implements Callable<Void> {
   }
 
   /**
-   * Simpliest fight strategy "the strongest will win"
+   * The simplest fight strategy "the strongest will win"
    * @return nothing
    * @throws Exception
    */
