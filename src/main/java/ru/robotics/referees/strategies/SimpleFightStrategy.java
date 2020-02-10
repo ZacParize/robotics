@@ -18,6 +18,7 @@ import ru.robotics.actors.Actor;
 /**
  * Base simple fight strategy
  * @see Callable
+ * @see Actor
  */
 public class SimpleFightStrategy implements Callable<Actor> {
 
