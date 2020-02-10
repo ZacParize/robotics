@@ -23,7 +23,7 @@ import ru.robotics.factories.referess.RefereeFactory;
 import ru.robotics.weapons.Automat;
 import ru.robotics.weapons.Gun;
 
-public class SimpleRefereeTest {
+class SimpleRefereeTest {
 
   @Test
   void testNulls() {
