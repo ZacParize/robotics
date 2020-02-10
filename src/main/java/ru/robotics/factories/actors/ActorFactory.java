@@ -42,7 +42,7 @@ public class ActorFactory {
    * @param protectEquipments collection of protect equipments
    * @return protect equipped killer instance
    */
-  public static ProtectEquippedKiller createProtectEquippedKiller(String id,
+  public static Killer createProtectEquippedKiller(String id,
       Collection<Weapon> weapons,
       Collection<ProtectEquipment> protectEquipments) {
     return new ProtectEquippedKiller(id, weapons, protectEquipments);
