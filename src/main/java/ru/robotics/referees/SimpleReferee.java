@@ -132,7 +132,7 @@ public class SimpleReferee<T extends Actor & Observable<T>> implements Observer<
     }
     T winner = actors.get(actorAction.keySet().iterator().next());
     System.out.println("The winner is " + winner.getId());
-    return actors.get(actorAction.keySet().iterator().next());
+    return winner;
   }
 
 }
