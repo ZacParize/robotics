@@ -128,16 +128,16 @@ public class SimpleReferee<T extends Actor & Observable<T>> implements Observer<
    * @return winner actor
    */
   @Override
-  public Actor getWinner() {
+  public Optional<Actor> getWinner() {
     if (actors.isEmpty()) {
-      return null;
+      return Optional.empty();
     }
     if (actors.size() > 1) {
       observe();
     }
     T winner = actors.get(actorAction.keySet().iterator().next());
     System.out.println("The winner is " + winner.getId());
-    return winner;
+    return Optional.of(winner);
   }
 
 }

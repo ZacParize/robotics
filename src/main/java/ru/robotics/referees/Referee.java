@@ -9,6 +9,7 @@
 
 package ru.robotics.referees;
 
+import java.util.Optional;
 import ru.robotics.actors.Actor;
 
 /**
@@ -20,6 +21,6 @@ public interface Referee {
    * Get winner of fight
    * @return winner actor {@link Actor}
    */
-  Actor getWinner();
+  Optional<Actor> getWinner();
 
 }
