@@ -12,7 +12,7 @@ package ru.robotics.actors;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.ConcurrentHashMap;
 import ru.robotics.referees.Observer;
 
 /**
@@ -26,7 +26,7 @@ public class ObservableImpl<T extends Observable> implements Observable<T> {
   /**
    * Set of observers
    */
-  private final Set<Observer<T>> observers = new CopyOnWriteArraySet<>();
+  private final Set<Observer<T>> observers = ConcurrentHashMap.newKeySet();
 
   /**
    * Constructor
