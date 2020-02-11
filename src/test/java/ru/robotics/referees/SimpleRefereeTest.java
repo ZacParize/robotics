@@ -53,6 +53,16 @@ class SimpleRefereeTest {
   }
 
   @Test
+  void testOneParticipant() {
+    final String id1 = "killer1";
+
+    SimpleReferee referee = RefereeFactory.createSimpleReferee(List.of(
+        ActorFactory.createKiller(id1, null)
+    ));
+    assertEquals(id1, referee.getWinner().getId());
+  }
+
+  @Test
   void testTwoParticipants() {
     final String id1 = "killer1";
     final String id2 = "killer2";

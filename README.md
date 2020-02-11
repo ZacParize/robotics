@@ -5,14 +5,14 @@ Unit tests are in process of writing
 
 Main entities:
 
-1) Weapon - weapon of participant. Could have any kind of attack equipment.
+1) Weapon - weapon of participant. Could have any kind of attack equipments.
 
 2) Equipment - equipment of weapon or participant.
    Could be two types:
    - protect equipment;
    - attack equipment.
  
-3) Referee - main entity which manages and observe duel process. 
+3) Referee - main entity which manages and observes duel process. 
    Referee announces the winner.
    
 4) Actor - participant of duel. Has weapon and any kind of protected equipments.   
