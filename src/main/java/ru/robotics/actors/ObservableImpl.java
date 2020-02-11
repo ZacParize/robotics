@@ -11,6 +11,7 @@ package ru.robotics.actors;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import ru.robotics.referees.Observer;
@@ -40,10 +41,7 @@ public class ObservableImpl<T extends Observable> implements Observable<T> {
    */
   @Override
   public void addObserver(Observer<T> observer) {
-    if (observer == null) {
-      return;
-    }
-    observers.add(observer);
+    Optional.ofNullable(observer).ifPresent(observers::add);
   }
 
   /**
@@ -52,10 +50,7 @@ public class ObservableImpl<T extends Observable> implements Observable<T> {
    */
   @Override
   public void removeObserver(Observer<T> observer) {
-    if (observer == null) {
-      return;
-    }
-    observers.remove(observer);
+    Optional.ofNullable(observer).ifPresent(observers::remove);
   }
 
   /**
