@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
@@ -26,6 +27,7 @@ import ru.robotics.referees.strategies.SimpleFightStrategy;
 
 /**
  * Observer referee implementation
+ *
  * @param <T> concrete type of actor
  * @see Actor
  * @see Observable
@@ -49,17 +51,16 @@ public class SimpleReferee<T extends Actor & Observable<T>> implements Observer<
 
   /**
    * Constructor
+   *
    * @param actors collection of actors
    */
   public SimpleReferee(Collection<T> actors) {
-    if (actors == null || actors.isEmpty()) {
-      return;
-    }
-    actors.forEach(actor -> {
-      actor.addObserver(this);
-      this.actors.put(actor.getId(), actor);
-      this.actorAction.put(actor.getId(), Action.NOTHING);
-    });
+    Optional.ofNullable(actors).ifPresent(actorsCollection ->
+        actorsCollection.forEach(actor -> {
+          actor.addObserver(this);
+          this.actors.put(actor.getId(), actor);
+          this.actorAction.put(actor.getId(), Action.NOTHING);
+        }));
   }
 
   /**
@@ -83,7 +84,8 @@ public class SimpleReferee<T extends Actor & Observable<T>> implements Observer<
       while (iterator.hasNext()) {
         fightParticipants.add(actors.get(iterator.next().getKey()));
         if (fightParticipants.size() == 2) {
-          tasks.add(new SimpleFightStrategy(fightParticipants.get(0), fightParticipants.get(1), actorAction));
+          tasks.add(new SimpleFightStrategy(fightParticipants.get(0), fightParticipants.get(1),
+              actorAction));
           fightParticipants.clear();
         }
       }
@@ -92,7 +94,8 @@ public class SimpleReferee<T extends Actor & Observable<T>> implements Observer<
         threadPool.invokeAll(tasks);
       } catch (Exception e) {
         Thread.currentThread().interrupt();
-        System.out.println("Something interrupted referee: " + e.getLocalizedMessage() + ". Game over");
+        System.out
+            .println("Something interrupted referee: " + e.getLocalizedMessage() + ". Game over");
         throw new IllegalStateException(e);
       }
 
@@ -107,6 +110,7 @@ public class SimpleReferee<T extends Actor & Observable<T>> implements Observer<
 
   /**
    * Notify observer about actor's action
+   *
    * @param actor actor who notifies
    * @param action actor notification action
    */
@@ -120,6 +124,7 @@ public class SimpleReferee<T extends Actor & Observable<T>> implements Observer<
 
   /**
    * Get winner of duel
+   *
    * @return winner actor
    */
   @Override
