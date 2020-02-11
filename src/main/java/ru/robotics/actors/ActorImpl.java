@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import ru.robotics.weapons.Weapon;
@@ -66,13 +67,12 @@ public class ActorImpl implements Actor {
    */
   @Override
   public void attack(Actor opponent) {
-    if (opponent == null) {
-      return;
-    }
-    // count damage from all weapons
-    int damage = weapons.stream().map(Weapon::damage).reduce(0, (a, b) -> a + b);
-    opponent.protect(damage);
-    System.out.println(id + " have just attacked " + opponent.getId() + " with damage " + damage);
+    Optional.ofNullable(opponent).ifPresent(o -> {
+      // count damage from all weapons
+      int damage = weapons.stream().map(Weapon::damage).reduce(0, (a, b) -> a + b);
+      opponent.protect(damage);
+      System.out.println(id + " have just attacked " + opponent.getId() + " with damage " + damage);
+    });
   }
 
   /**
