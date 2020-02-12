@@ -10,6 +10,7 @@
 package ru.robotics.referees.strategies;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.Callable;
 import ru.robotics.actions.Action;
@@ -20,7 +21,7 @@ import ru.robotics.actors.Actor;
  * @see Callable
  * @see Actor
  */
-public class SimpleFightStrategy implements Callable<Actor> {
+public class SimpleFightStrategy implements Callable<Optional<Actor>> {
 
   private final Actor actor1;
   private final Actor actor2;
@@ -38,9 +39,9 @@ public class SimpleFightStrategy implements Callable<Actor> {
    * @throws Exception
    */
   @Override
-  public Actor call() throws Exception {
+  public Optional<Actor> call() throws Exception {
     if (actor1 == null || actor2 == null || actions == null) {
-      return null;
+      return Optional.empty();
     }
     actions.put(actor1.getId(), new Random().nextInt(2) == 0 ? Action.ATTACK : Action.PROTECT);
     actions.put(actor2.getId(),
@@ -52,6 +53,6 @@ public class SimpleFightStrategy implements Callable<Actor> {
         actor2.attack(actor1);
       }
     }
-    return actor1.isAlive() ? actor1 : actor2;
+    return Optional.of(actor1.isAlive() ? actor1 : actor2);
   }
 }

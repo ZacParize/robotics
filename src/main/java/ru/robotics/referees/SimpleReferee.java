@@ -72,7 +72,7 @@ public class SimpleReferee<T extends Actor & Observable<T>> implements Observer<
       return;
     }
 
-    final Collection<Callable<Actor>> tasks = new ArrayList<>();
+    final Collection<Callable<Optional<Actor>>> tasks = new ArrayList<>();
     final List<T> fightParticipants = new ArrayList<>(2);
     Iterator<Map.Entry<String, Action>> iterator;
 
