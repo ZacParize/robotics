@@ -10,7 +10,7 @@
 package ru.robotics.equipment;
 
 /**
- * Grenade attack equipment implementation
+ * Grenade attack equipment implementation of {@link AttackEquipment}
  * @see Equipment
  */
 public class Grenade implements AttackEquipment {

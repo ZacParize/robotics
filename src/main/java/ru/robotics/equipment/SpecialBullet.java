@@ -10,7 +10,7 @@
 package ru.robotics.equipment;
 
 /**
- * Anti armour bullet attack equipment implementation
+ * Anti armour bullet attack equipment implementation of {@link AttackEquipment}
  * @see Equipment
  */
 public class SpecialBullet implements AttackEquipment {
