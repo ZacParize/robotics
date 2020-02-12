@@ -21,6 +21,7 @@ import ru.robotics.equipment.Equipment;
 
 /**
  * Equipped implementation with all necessary functional.
+ * Thread safe
  * @param <E> concrete type of equipment
  */
 public class EquippedImpl<E extends Equipment> implements Equipped<E> {
